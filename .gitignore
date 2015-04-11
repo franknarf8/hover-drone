@@ -64,3 +64,5 @@ tramp
 *.bash
 *.properties
 Controller/Makefile
+*.d
+*.inc

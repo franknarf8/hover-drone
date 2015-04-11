@@ -9,19 +9,20 @@
 #define	GAMINGCONTROLLER_H
 #include "PortSerie.h"
 #include <vector>
+#include <iostream>
 
 using std::vector;
 
 class GamingController 
 {
+private:
     PortSerie portSerie;
-
+public:
     GamingController(int baudrate, int comDelay, int port, int attenteLecture, int byteSize) 
     {
         portSerie = PortSerie(baudrate, comDelay, port, attenteLecture, byteSize);
     }
     
-public:
     void LireCommande()
     {
         for(auto i = 0; i < 16; ++i)

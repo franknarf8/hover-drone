@@ -36,6 +36,7 @@ public:
 
     PortSerie() {
     }
+    PortSerie(int baudrate, int comDelay, int port, int attenteLecture, int byteSize);
     PortSerie(const PortSerie& PortSerie);
     PortSerie(int Port);
     ~PortSerie();
@@ -50,7 +51,7 @@ private:
     
     
     //M�thodes D'initialisation du PortSerie
-    void CreerPort(int baudrate, int comDelay, int port, int attenteLecture, int byteSize);
+    void CreerPort(int Port);
     void InitialiserDcb();
     void ReglerDelais(short Delais);
 

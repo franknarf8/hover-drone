@@ -2,13 +2,13 @@
 //1 Novembre 2012
 //Fichier CPortSerie.cpp
 //D�finition de la classe CPortSerie
-#include "CPortSerie.h"
+#include "PortSerie.h"
 #include <conio.h>
 #include <iostream>
 using std::cout;
 using std::endl;
 
-CPortSerie::CPortSerie(int baudrate, int comDelay, int port, int attenteLecture, int byteSize)
+PortSerie::PortSerie(int baudrate, int comDelay, int port, int attenteLecture, int byteSize)
 {
     //Appel de Fonctions pour Cr�er ouvrir et Initialiser le PortS�rie
    
@@ -24,12 +24,12 @@ CPortSerie::CPortSerie(int baudrate, int comDelay, int port, int attenteLecture,
     nbCaracteresLus = 0;
 }
 
-CPortSerie::CPortSerie(const CPortSerie& PortSerie)
+PortSerie::PortSerie(const PortSerie& PortSerie)
 {
     *this = PortSerie;
 }
 
-void CPortSerie::CreerPort(int Port)
+void PortSerie::CreerPort(int Port)
 {
     //Affectation du Handle et Cr�ation du Port
     _PortSerie = CreateFile("COM" + Port, GENERIC_READ | GENERIC_WRITE, 0, 0, OPEN_EXISTING, 0, 0);
@@ -38,7 +38,7 @@ void CPortSerie::CreerPort(int Port)
     }
 }
 
-void CPortSerie::InitialiserDcb()
+void PortSerie::InitialiserDcb()
 {
     //Parametres de Communication
     if (!GetCommState(_PortSerie, &_Dcb)) {
@@ -56,7 +56,7 @@ void CPortSerie::InitialiserDcb()
     }
 }
 
-void CPortSerie::ReglerDelais(short Delais)
+void PortSerie::ReglerDelais(short Delais)
 {
     // mets tous les champs de la structure � z�ro
     memset(&_Delais, 0, sizeof ( _Delais));
@@ -73,7 +73,7 @@ void CPortSerie::ReglerDelais(short Delais)
     }
 }
 
-int CPortSerie::Envoyer(vector<char> Vals)
+int PortSerie::Envoyer(vector<char> Vals)
 {
     DWORD caracteresEcrits;
     WriteFile(_PortSerie, &Vals, Vals.size(), &caracteresEcrits, 0); //Eciture sur le port serie des octet un par un
@@ -83,7 +83,7 @@ int CPortSerie::Envoyer(vector<char> Vals)
     return 1;
 }
 
-int CPortSerie::Envoyer(char Lettre, short Numero, short Requete)
+int PortSerie::Envoyer(char Lettre, short Numero, short Requete)
 {
     DWORD caracteresEcrits;
     WriteFile(_PortSerie, ("" + Lettre + Numero + Requete), 5, &caracteresEcrits, 0); //Eciture sur le port serie
@@ -93,7 +93,7 @@ int CPortSerie::Envoyer(char Lettre, short Numero, short Requete)
     return 1;
 }
 
-int CPortSerie::Envoyer(short Val)
+int PortSerie::Envoyer(short Val)
 {
     DWORD caracteresEcrits;
     WriteFile(_PortSerie, &Val, 2, &caracteresEcrits, 0); //Eciture sur le port serie
@@ -103,7 +103,7 @@ int CPortSerie::Envoyer(short Val)
     return 1;
 }
 
-char CPortSerie::LectureChar()
+char PortSerie::LectureChar()
 {
     char Buffer;
 
@@ -114,7 +114,7 @@ char CPortSerie::LectureChar()
     return Buffer;
 }
 
-short CPortSerie::LectureShort()
+short PortSerie::LectureShort()
 {
     short Buffer;
 
@@ -125,18 +125,18 @@ short CPortSerie::LectureShort()
     return Buffer;
 }
 
-void CPortSerie::NettoyerBufferLecture()
+void PortSerie::NettoyerBufferLecture()
 {
     PurgeComm(_PortSerie, PURGE_RXCLEAR);
 }
 
-void CPortSerie::TraiterErreur(string message, DWORD erreur)
+void PortSerie::TraiterErreur(string message, DWORD erreur)
 {
     cout << "Erreur no " << erreur << " dans " << message << endl;
     ExitProcess(1);
 }
 
-CPortSerie::~CPortSerie()
+PortSerie::~PortSerie()
 {
     if (!CloseHandle(_PortSerie))//Fermeture du port 
     {

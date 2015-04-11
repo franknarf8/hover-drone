@@ -2,8 +2,8 @@
 //1 Novembre 2012
 //Fichier CPortSerie.h
 //D�claration de la classe CPortSerie pour protocole de domotique sp�cifiquement
-#ifndef CPORTSERIE_H
-#define CPORTSERIE_H
+#ifndef PORTSERIE_H
+#define PORTSERIE_H
 
 #include <Windows.h>
 #include <vector>
@@ -23,7 +23,7 @@ using std::vector;
 // 5.0x41 : repeat count = 1
 ///////////////////////////////////////////////////////
 
-class CPortSerie {
+class PortSerie {
     HANDLE _PortSerie; //Handle permettant d'�crire sur le port 
     DCB _Dcb; // DCB permettant de controler les parametres de la communication s�rie
     COMMTIMEOUTS _Delais; //Controle du d�lais de lecture sur le port
@@ -34,11 +34,11 @@ class CPortSerie {
 public:
     //Constructeurs et Destructeurs
 
-    CPortSerie() {
+    PortSerie() {
     }
-    CPortSerie(const CPortSerie& PortSerie);
-    CPortSerie(int Port);
-    ~CPortSerie();
+    PortSerie(const PortSerie& PortSerie);
+    PortSerie(int Port);
+    ~PortSerie();
 
 private:
     int BaudRate;
@@ -67,7 +67,7 @@ public:
     short LectureShort();
     unsigned char* LecturePlusieursOctets();
 
-    CPortSerie& operator=(const CPortSerie& PortSerie) {
+    PortSerie& operator=(const PortSerie& PortSerie) {
         _PortSerie = PortSerie._PortSerie;
         _Dcb = PortSerie._Dcb;
         _Delais = PortSerie._Delais;

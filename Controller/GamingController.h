@@ -7,18 +7,18 @@
 
 #ifndef GAMINGCONTROLLER_H
 #define	GAMINGCONTROLLER_H
-#include "CPortSerie.h"
+#include "PortSerie.h"
 #include <vector>
 
 using std::vector;
 
 class GamingController 
 {
-    CPortSerie portSerie;
+    PortSerie portSerie;
 
     GamingController(int baudrate, int comDelay, int port, int attenteLecture, int byteSize) 
     {
-        portSerie = CPortSerie(baudrate, comDelay, port, attenteLecture, byteSize);
+        portSerie = PortSerie(baudrate, comDelay, port, attenteLecture, byteSize);
     }
     
 public:

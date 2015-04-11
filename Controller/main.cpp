@@ -18,7 +18,7 @@ int main(int argc, char** argv)
     GamingController controller(9600, 2, 2, 1, 8);
     while (true)
     {
-        controller.LireCommande()
+      controller.LireCommande();
     }
     
     return 0;

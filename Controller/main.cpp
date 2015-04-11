@@ -6,7 +6,8 @@
  */
 
 #include <cstdlib>
-#include "GamingController.h"
+#include "ClavierHandler.h"
+#include <iostream>
 
 using namespace std;
 
@@ -15,12 +16,16 @@ using namespace std;
  */
 int main(int argc, char** argv)
 {
-    GamingController controller(9600, 2, 2, 1, 8);
-    while (true) 
+    bool fin = false;
+    ClavierHandler clavier(true);
+    while(!fin)
     {
-        controller.LireCommande();
+        int key = clavier.ObtenirDerniereToucheAppuyee();
+        if(key != NUMPADNull)
+        {
+            std::cout << "key pressed: " << key << std::endl;
+        }
     }
-
     return 0;
 }
 

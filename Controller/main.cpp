@@ -13,14 +13,14 @@ using namespace std;
 /*
  * 
  */
-int main(int argc, char** argv) 
+int main(int argc, char** argv)
 {
     GamingController controller(9600, 2, 2, 1, 8);
-    while (true)
+    while (true) 
     {
         controller.LireCommande();
     }
-    
+
     return 0;
 }
 

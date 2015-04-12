@@ -1,14 +1,31 @@
 ﻿#include <iostream>
 #include <stdio.h>
-#include "hidapi.h"
+
+#include <QObject>
+#include <QCoreApplication>
+#include <QThread>
 
 #include "CommSNES.h"
+#include "testreceiver.h"
 
 #define CODE_LENGTH 8
 
 std::ostream& operator<< (std::ostream& stream, KeyCode);
 
-int main() {
+Q_DECLARE_METATYPE(CTRLSTATE)
+
+int main(int argc, char *argv[]) {
+    QCoreApplication a(argc, argv);
+    qRegisterMetaType<CTRLSTATE>();
+
+    ControllerInput input;
+    TestReceiver receiver;
+    QObject::connect(&input, SIGNAL(stateChanged(CTRLSTATE)), &receiver, SLOT(logState(CTRLSTATE)));
+
+    return a.exec();
+}
+
+/*int main() {
   int res;
   unsigned char data[8] = {0};
   KeyCode key(0x0);
@@ -72,7 +89,7 @@ int main() {
   // Finalize the hidapi library
   res = hid_exit();
   return 0;
-}
+}*/
 
 std::ostream& operator<< (std::ostream& stream, KeyCode key)  {
   stream << key.value();

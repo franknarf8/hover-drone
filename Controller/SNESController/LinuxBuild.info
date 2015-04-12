@@ -1,5 +1,0 @@
-To build this on linux the DYNLIBS value int the Makefile should be adjusted
-to the .so file compiled from the HID API source code.
-Check also the udev/99-hid.rules or run the binaries with sudo.
-
-git clone https://github.com/signal11/hidapi.git

@@ -1,0 +1,11 @@
+To build this HID API must be compiled from its source code and placed in ./libs directory.
+
+git clone https://github.com/signal11/hidapi.git
+
+Linux:
+Some adjustments to qmake might need to be made
+Check also the udev/99-hid.rules or run the binaries with sudo.
+
+Windows using MinGW:
+qmake -platform win32-g++
+make

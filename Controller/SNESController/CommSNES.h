@@ -1,11 +1,14 @@
 #ifndef COMMSNES_H
 #define COMMSNES_H
 
+#include <QRunnable>
+#include <QObject>
 #include <cstdint>
 
 #define CODE_LENGTH 8
+#define STDDELAY 100
 
-//enum{}
+enum CTRLSTATE {UNKNOWN, NOINPUT, UP, DOWN, LEFT, RIGHT};
 
 class KeyCode {
 public:
@@ -25,7 +28,14 @@ private:
   static void copy(unsigned char* container, unsigned char* data);
 };
 
-//TODO thread independent class with a callback function which
-//sends the enum state of the state machine's instance
+class ControllerInput : public QObject, public QRunnable {
+    Q_OBJECT
+public:
+    ControllerInput();
+    ~ControllerInput();
+    void run();
+ signals:
+    void stateChanged(CTRLSTATE);
+};
 
 #endif
